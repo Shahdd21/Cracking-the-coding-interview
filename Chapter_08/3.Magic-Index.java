@@ -1,20 +1,28 @@
- public static int findMagicIndex(int[] arr){
+public static void main(String[] args){
 
-        int st = 0, end = arr.length-1;
+        int[] arr = new int[]{8,7,6,5,4};
 
-        while(st <= end){
-            int mid = (st+end)/2;
+        System.out.println(fun(arr));
+    }
 
-            if(arr[mid] == mid) return mid;
+    public static int fun(int[] arr){
 
-            else if(arr[mid] < mid){ //go right
-                st = Math.max(mid+1, arr[mid]);
-            }
+        return helper(0,arr.length-1, arr);
+    }
 
-            else if(arr[mid] > mid){ //go left
-                end = Math.min(mid-1, arr[mid]);
-            }
-        }
+    private static int helper(int low, int high, int[] arr) {
 
-        return -1; // the magic index is not found
+        //assuming desc order
+       // no duplicates
+
+        int mid = (low+high)/2;
+
+        if(mid >= arr.length) return -1;
+
+        if(arr[mid] == mid) return mid;
+
+        else if(arr[mid] > mid) return helper(mid+1, high, arr);
+
+        else return helper(low,mid-1, arr);
+
     }
